@@ -33,10 +33,11 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with open(os.path.join(app.config['UPLOAD_FOLDER'], filename)) as fp:
-                for line in fp.readlines():
-                    print(line, file=sys.stderr)
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], 'new_' + filename), 'w') as wp:
+                    for line in fp.readlines():
+                        print('new_' + line, file=wp)
             return redirect(url_for('uploaded_file',
-                                    filename=filename))
+                                    filename='new_' + filename))
     return '''
     <!doctype html>
     <title>Upload new File</title>
