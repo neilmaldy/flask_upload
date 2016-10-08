@@ -3,11 +3,13 @@ import sys
 from flask import Flask, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
+from flask_script import Manager
 
 UPLOAD_FOLDER = 'C:\\uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
+manager = Manager(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
@@ -55,4 +57,5 @@ def uploaded_file(filename):
                                filename)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    #app.run(debug=True)
+    manager.run()
